@@ -1,11 +1,15 @@
 package com.company;
 
 import java.time.*;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        drawCalendar(8);
+        Scanner sc = new Scanner(System.in);
+        int d = sc.nextInt();
+
+        drawCalendar(d);
     }
 
     public static void drawCalendar(){
