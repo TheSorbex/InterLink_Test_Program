@@ -1,7 +1,9 @@
 package com.company;
 
+import java.sql.Time;
 import java.time.*;
 import java.util.Scanner;
+import java.util.TimeZone;
 
 public class Main {
 
@@ -13,7 +15,7 @@ public class Main {
     }
 
     public static void drawCalendar(){
-        LocalDate now = LocalDate.now();
+        LocalDate now = LocalDate.now(ZoneId.systemDefault());
         drawCalendar(now.getMonth().getValue());
     }
 
@@ -23,7 +25,7 @@ public class Main {
             return;
         }
 
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault());
         Month month = Month.of(m);
         LocalDate date = LocalDate.of(now.getYear(),month.getValue(),1);
         DayOfWeek firstDay = DayOfWeek.of(date.getDayOfWeek().getValue());
