@@ -23,19 +23,26 @@ public class Main {
             return;
         }
 
-        LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault());
+        LocalDate now = LocalDate.now(ZoneId.systemDefault());
         Month month = Month.of(m);
+        int currentMonthCapacity;
         LocalDate date = LocalDate.of(now.getYear(), month.getValue(),1);
+
+        if (date.getYear()%4 == 0){
+            currentMonthCapacity = month.maxLength();
+        } else {
+            currentMonthCapacity = month.minLength();
+        }
         DayOfWeek firstDay = DayOfWeek.of(date.getDayOfWeek().getValue());
 
         System.out.println(month);
         System.out.println("Mo Tu We Th Fr " + (char)27 + "[31mSa Su" + (char)27+"[0m");
 
-        for (int i = 1; i < firstDay.getValue(); i++){
+        for (int i = DayOfWeek.MONDAY.getValue(); i < firstDay.getValue(); i++){
             System.out.print("   ");
         }
 
-        for (int i = firstDay.getValue(); i < month.minLength() + firstDay.getValue(); i++) {
+        for (int i = firstDay.getValue(); i < currentMonthCapacity + firstDay.getValue(); i++) {
             writeDay(i,firstDay,month);
         }
         System.out.println();
@@ -51,7 +58,7 @@ public class Main {
             spaces = " ";
         }
 
-        if (i - day.getValue() + 1 == LocalDate.now().getDayOfMonth()){
+        if (LocalDate.now().getMonth() == month && i - day.getValue() + 1 == LocalDate.now().getDayOfMonth()){
             color = "34";
         } else if(i % 7 != 6 && i % 7 != 0){
             color = "30";
