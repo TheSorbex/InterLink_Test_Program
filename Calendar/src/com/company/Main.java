@@ -2,6 +2,7 @@ package com.company;
 
 import java.time.*;
 import java.time.format.TextStyle;
+import java.time.temporal.ValueRange;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -29,14 +30,14 @@ public class Main {
         Locale locale = Locale.ENGLISH;
 
         LocalDate now = LocalDate.now(ZoneId.systemDefault());
-        LocalDate date = LocalDate.of(now.getYear(), m,1);
+        LocalDate date = LocalDate.of(now.getYear(), m, 1);
 
         DayOfWeek firstDay = DayOfWeek.of(date.getDayOfWeek().getValue());
 
         System.out.println(Month.of(m));
         for (DayOfWeek day : DayOfWeek.values()){
             String color;
-            if (day.getValue()<6) {
+            if (day.getValue()<DayOfWeek.SATURDAY.getValue()) {
                 color = "30";
             } else {
                 color = "31";
@@ -68,14 +69,14 @@ public class Main {
 
         if (LocalDate.now().getMonth() == Month.of(month) && i - day.getValue() + 1 == LocalDate.now().getDayOfMonth()){
             color = "34";
-        } else if(i % 7 != 6 && i % 7 != 0){
+        } else if(i % 7 < DayOfWeek.SATURDAY.getValue() && i % 7 >= DayOfWeek.MONDAY.getValue()){
             color = "30";
         } else {
             color = "31";
         }
         System.out.print((char) 27 + "[" + color + "m"  +(i - day.getValue() + 1) + (char) 27 + "[0m" + spaces);
 
-        if (i % 7 == 0) {
+        if (i % 7 == DayOfWeek.MONDAY.getValue()-1) {
             System.out.println();
         }
     }
